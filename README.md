@@ -98,3 +98,34 @@ The project includes a code review workflow that analyzes code for functions, co
 - `storage.py`: In-memory storage for graphs and runs
 - `registry.py`: Tool registration system
 - `workflows.py`: Predefined workflows and tools
+
+
+## What I Would Improve With More Time
+
+1. Add branching logic
+- Support conditional routing like:
+```json
+"branches": { "high": "pathA", "low": "pathB" }
+```
+2. Async execution of nodes
+- Allow long-running tools to run concurrently and   improve performance.
+
+3. Real database storage
+- Persist graphs and run logs using:
+- SQLite
+- PostgreSQL
+Instead of in-memory dictionaries.
+
+4. WebSocket streaming
+- Stream node-by-node execution logs to UI (like LangGraph streaming updates).
+
+5. Graph Editor UI
+- A drag-and-drop visual interface to build graphs.
+
+6. Stronger loop safety
+Prevent infinite loops by:
+- max step limit
+- timeout handling
+
+7. Error boundaries
+- Isolate node failures and continue running alternative paths.
