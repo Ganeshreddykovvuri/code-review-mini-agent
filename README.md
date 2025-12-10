@@ -1,4 +1,4 @@
-# Graph Execution Engine
+# Code Review Workflow Engine
 
 This project is a FastAPI-based graph execution engine that allows creating and running configurable graphs with tools and workflows. It provides endpoints for graph creation, execution, and state retrieval.
 
@@ -129,3 +129,4 @@ Prevent infinite loops by:
 
 7. Error boundaries
 - Isolate node failures and continue running alternative paths.
+
