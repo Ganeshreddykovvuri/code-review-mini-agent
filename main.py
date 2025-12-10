@@ -77,3 +77,6 @@ async def get_run_state(run_id: str):
         status=run_state.status,
         log=run_state.log,
     )
+
+# To run the app, use the command:
+# uvicorn main:app --reload
