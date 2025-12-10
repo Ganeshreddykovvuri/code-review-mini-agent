@@ -5,7 +5,6 @@ from registry import get_tool
 
 
 def _evaluate_loop_condition(expr: str, state: dict) -> bool:
-    # simple + unsafe eval, but OK for assignment
     try:
         return bool(eval(expr, {}, {"state": state}))
     except Exception:
@@ -34,7 +33,6 @@ def run_step(run_state: RunState, graph: GraphConfig) -> RunState:
         if _evaluate_loop_condition(node_cfg.loop_condition, run_state.state):
             next_node = node_name  # loop on same node
 
-    # TODO: Branching can be added later; for now we just use .next
     if not next_node:
         next_node = node_cfg.next
 
@@ -59,3 +57,4 @@ def run_to_completion(run_state: RunState, graph: GraphConfig) -> RunState:
     while run_state.status == "running" and run_state.current_node is not None:
         run_state = run_step(run_state, graph)
     return run_state
+
