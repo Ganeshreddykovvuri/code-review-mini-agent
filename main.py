@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from models import (
     GraphCreateRequest,
@@ -13,13 +15,19 @@ from engine import run_to_completion
 from workflows import register_code_review_workflow
 import uuid
 
-app = FastAPI()
 
-
-@app.on_event("startup")
-def startup_event():
-    # register tools and default "code_review" graph
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: register tools and default "code_review" graph
     register_code_review_workflow()
+    yield
+    # Shutdown: nothing to clean up for now
+
+
+app = FastAPI(
+    title="Option A – Code Review Workflow Engine",
+    lifespan=lifespan,
+)
 
 
 @app.post("/graph/create", response_model=GraphCreateResponse)
@@ -77,6 +85,3 @@ async def get_run_state(run_id: str):
         status=run_state.status,
         log=run_state.log,
     )
-
-# To run the app, use the command:
-# uvicorn main:app --reload
